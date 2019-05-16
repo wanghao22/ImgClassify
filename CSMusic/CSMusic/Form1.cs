@@ -177,8 +177,8 @@ namespace CSMusic
                 int sec = maxl % 60;
                 TimeSpan pan = new TimeSpan(hour, mint, sec);
                 mp3.CurrentTime = pan;
-                trackbar_flag = true;
             }
+            trackbar_flag = true;
         }
 
         /// <summary>
