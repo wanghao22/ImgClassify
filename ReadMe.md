@@ -8,10 +8,10 @@
 >
 > 打开param.dat输入以下内容：
 >
-> ![param.jpg](imgs/param.jpg>)
+> ![param.jpg](imgs/param.jpg)
 >
 > 然后打开程序，可以看到快捷键的部分修改了。
 >
-> ![show.jpg](imgs/show.jpg>)
+> ![show.jpg](imgs/show.jpg)
 
 ------
