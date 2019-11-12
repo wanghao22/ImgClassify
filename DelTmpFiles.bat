@@ -15,9 +15,6 @@ del /a /f /s /q *.sdf
 del /a /f /s /q *.ipch
 del /a /f /s /q *.iobj
 del /a /f /s /q *.ipdb
-del /a /f /s /q *.jpg
-del /a /f /s /q *.png
-del /a /f /s /q *.bmp
 del /a /f /s /q *.tiff
 del /a /f /s /q *.xls
 del /a /f /s /q *.tlog
