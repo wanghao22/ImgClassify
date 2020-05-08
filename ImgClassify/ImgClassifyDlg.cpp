@@ -195,7 +195,9 @@ UINT TrainValTest_Thread(PVOID pParam)
 		{
 			pWnd->m_pathc.push_back(temp);
 			pWnd->m_namec.push_back(pWnd->m_name[index]);
-			pWnd->MoveMatToDir(src, fullpath, index, false);
+			int rc = pWnd->MoveMatToDir(src, fullpath, index, false);
+			if (rc != 0)
+				break;
 		}
 		cnt++;
 		int pos = cnt * 100 / sum;
@@ -734,7 +736,7 @@ void CImgClassifyDlg::ThreadShowEnable(bool flag)
 	GetDlgItem(IDC_TRAIN_VAL_TEST)->EnableWindow(flag);
 }
 
-void CImgClassifyDlg::MoveMatToDir(cv::Mat src, std::string path, int index, bool show_flag)
+int CImgClassifyDlg::MoveMatToDir(cv::Mat src, std::string path, int index, bool show_flag)
 {
 	if (imwrite(path, src))
 	{
@@ -762,7 +764,9 @@ void CImgClassifyDlg::MoveMatToDir(cv::Mat src, std::string path, int index, boo
 		m_pathc.pop_back();
 		m_namec.pop_back();
 		AfxMessageBox(L"移动文件失败，请检查文件夹是否存在！");
+		return -1;
 	}
+	return 0;
 }
 
 void CImgClassifyDlg::closeThread()

@@ -11,6 +11,9 @@ namespace DirFile {
 	//将父文件夹和子文件夹或者子文件合并为一个完整的路径
 	std::string DirAddSubdir(std::string path, std::string subdir);
 
+	//解决中文乱码的char*转wchar_t*
+	CString zhToCString(std::string str);
+
 	//创建文件夹 完整路径
 	int CreateDir(std::string dir);
 

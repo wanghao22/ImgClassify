@@ -69,7 +69,7 @@ public:
 	afx_msg void OnBnClickedButtonNg();
 	void DlgItemShowEnale(bool flag);
 	void ThreadShowEnable(bool flag);
-	void MoveMatToDir(cv::Mat src, std::string path, int index, bool show_flag = true);
+	int MoveMatToDir(cv::Mat src, std::string path, int index, bool show_flag = true);
 	CWinThread* m_pthread;
 	CWinThread* m_pthread_del;
 	CWinThread* m_pthread_tvt;

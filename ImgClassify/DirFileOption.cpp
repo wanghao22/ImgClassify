@@ -26,12 +26,31 @@ string DirFile::DirAddSubdir(string path, string subdir)
 	return dir;
 }
 
+//解决中文乱码的char*转wchar_t*
+CString DirFile::zhToCString(std::string str)
+{
+	//计算char *数组大小，以字节为单位，一个汉字占两个字节
+	int charLen = str.length();
+	//计算多字节字符的大小，按字符计算。
+	int len = MultiByteToWideChar(CP_ACP, 0, str.c_str(), charLen, NULL, 0);
+	//为宽字节字符数组申请空间，数组大小为按字节计算的多字节字符大小
+	TCHAR *buf = new TCHAR[len + 1];
+	//多字节编码转换成宽字节编码
+	MultiByteToWideChar(CP_ACP, 0, str.c_str(), charLen, buf, len);
+	buf[len] = '\0'; //添加字符串结尾，注意不是len+1
+					 //将TCHAR数组转换为CString
+	CString pWideChar;
+	pWideChar.Append(buf);
+	//删除缓冲区
+	delete[]buf;
+	return pWideChar;
+}
+
 //创建文件夹 完整路径
 int DirFile::CreateDir(string dir)
 {
-	wchar_t wdir[100];
-	swprintf_s(wdir, 100, L"%hs", dir.c_str());
-	return _wmkdir(wdir);
+	CString pWideChar = zhToCString(dir);
+	return _wmkdir(pWideChar);
 }
 
 int DirFile::CreateDir(CString dir)
