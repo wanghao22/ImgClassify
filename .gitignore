@@ -26,8 +26,6 @@
 # Intermediate directorys
 Static/
 static/
-Debug/
-debug/
 !Windows/Common/Src/Debug/
 !Windows/Common/Src/debug/
 Obj/
