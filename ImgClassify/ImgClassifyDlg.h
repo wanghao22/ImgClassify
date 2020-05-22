@@ -92,4 +92,6 @@ public:
 	void Button_init();
 	bool m_train_val_test_falg;
 	afx_msg void OnBnClickedTrainValTest();
+	CButton m_is_color;
+	BOOL m_is_color_flag;
 };
