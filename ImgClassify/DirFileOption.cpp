@@ -16,9 +16,9 @@ bool DirFile::IsExisteDir(string path)
 string DirFile::DirAddSubdir(string path, string subdir)
 {
 	string dir;
-	int d1 = path.find_last_of("\\");
-	int d2 = path.find_last_of("/");
-	int len = path.length();
+	int d1 = static_cast<int>(path.find_last_of("\\"));
+	int d2 = static_cast<int>(path.find_last_of("/"));
+	int len = static_cast<int>(path.length());
 	if (d1 == len - 1 || d2 == len - 1)
 		dir = path + subdir;
 	else
@@ -30,7 +30,7 @@ string DirFile::DirAddSubdir(string path, string subdir)
 CString DirFile::zhToCString(std::string str)
 {
 	//计算char *数组大小，以字节为单位，一个汉字占两个字节
-	int charLen = str.length();
+	int charLen = static_cast<int>(str.length());
 	//计算多字节字符的大小，按字符计算。
 	int len = MultiByteToWideChar(CP_ACP, 0, str.c_str(), charLen, NULL, 0);
 	//为宽字节字符数组申请空间，数组大小为按字节计算的多字节字符大小
@@ -141,15 +141,15 @@ int DirFile::DeleteDir(string dir, string subdir)
 std::string DirFile::GetFatherDir(std::string str)
 {
 	string dir;
-	int d1 = str.find_last_of("\\");
-	int d2 = str.find_last_of("/");
-	int len = str.length();
+	int d1 = static_cast<int>(str.find_last_of("\\"));
+	int d2 = static_cast<int>(str.find_last_of("/"));
+	int len = static_cast<int>(str.length());
 	if (d1 == len - 1 || d2 == len - 1)
 		dir = str.substr(0,len-1);
 	else
 		dir = str;
-	d1 = dir.find_last_of("\\");
-	d2 = dir.find_last_of("/");
+	d1 = static_cast<int>(dir.find_last_of("\\"));
+	d2 = static_cast<int>(dir.find_last_of("/"));
 	dir = dir.substr(0, max(d1, d2));
 	return dir;
 }
