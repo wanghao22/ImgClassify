@@ -74,7 +74,7 @@ UINT LoadImage_Thread(PVOID pParam)
 
 	for (size_t i = 0; i < temp.size(); i++)
 	{
-		src = imread(temp[i], pWnd->m_is_color_flag);
+		src = imread(temp[i], -1);
 		if (src.empty())
 			continue;
 		if (pWnd->PathDevision(temp[i], paths, names) != 0)
@@ -127,7 +127,7 @@ UINT DelClass_Thread(PVOID pParam)
 
 	for (size_t i = 0; i < temp.size(); i++)
 	{
-		src = imread(temp[i], pWnd->m_is_color_flag);
+		src = imread(temp[i], -1);
 		if (src.empty())
 			continue;
 		if (pWnd->PathDevision(temp[i], paths, names) != 0)
@@ -191,7 +191,7 @@ UINT TrainValTest_Thread(PVOID pParam)
 		temp = DirFile::DirAddSubdir(pWnd->m_project_dir_str, temp);
 		string fullpath = DirFile::DirAddSubdir(temp, pWnd->m_name[index]);
 		Mat src;
-		src = imread(pWnd->m_fullpath[index], pWnd->m_is_color_flag);
+		src = imread(pWnd->m_fullpath[index], -1);
 		if (!src.empty())
 		{
 			pWnd->m_pathc.push_back(temp);
@@ -217,7 +217,6 @@ CImgClassifyDlg::CImgClassifyDlg(CWnd* pParent /*=NULL*/)
 	, m_del_calass_flag(false)
 	, m_train_val_test_falg(false)
 	, m_project_dir_str("")
-	, m_is_color_flag(FALSE)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDI_ICON1);
 }
@@ -227,7 +226,6 @@ void CImgClassifyDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_IMG_LIST, m_unkown_list);
 	DDX_Control(pDX, IDC_COMBO_CLASS, m_combox_class);
-	DDX_Control(pDX, IDC_IS_COLOR, m_is_color);
 }
 
 BEGIN_MESSAGE_MAP(CImgClassifyDlg, CDialogEx)
@@ -531,11 +529,9 @@ void CImgClassifyDlg::OnBnClickedSelectProject()
 		SetDlgItemText(IDC_SELECT_PROJECT, L"打开工程");
 		m_open_flag = false;
 		ShowMatImg(init_mat, IDC_SHOW_IMG, _WIN_NAME_);
-		GetDlgItem(IDC_IS_COLOR)->EnableWindow(true);
 	}
 	else
 	{
-		m_is_color_flag = m_is_color.GetCheck();
 		ThreadShowEnable(false);
 		m_project_dir = SelFilePath();
 		if (m_project_dir != L"")
@@ -547,15 +543,12 @@ void CImgClassifyDlg::OnBnClickedSelectProject()
 			{
 				AfxMessageBox(L"加载图像线程创建失败！");
 				GetDlgItem(IDC_SELECT_PROJECT)->EnableWindow(true);
-				GetDlgItem(IDC_IS_COLOR)->EnableWindow(true);
 				return;
 			}
-			GetDlgItem(IDC_IS_COLOR)->EnableWindow(false);
 		}
 		else
 		{
 			GetDlgItem(IDC_SELECT_PROJECT)->EnableWindow(true);
-			GetDlgItem(IDC_IS_COLOR)->EnableWindow(true);
 		}
 	}
 }
@@ -653,7 +646,7 @@ void CImgClassifyDlg::LoadImages(std::string fullpath)
 	for (size_t i = 0; i < temp.size(); i++)
 	{
 		int pos = (i + 1) * 100 / temp.size();
-		src = imread(temp[i], m_is_color_flag);
+		src = imread(temp[i], -1);
 		if (src.empty())
 			continue;
 		if (PathDevision(temp[i], paths, names) != 0)
@@ -669,7 +662,7 @@ void CImgClassifyDlg::OnLbnSelchangeImgList()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	int n = m_unkown_list.GetCurSel();
-	Mat src = imread(m_fullpath[n], m_is_color_flag);
+	Mat src = imread(m_fullpath[n], -1);
 	if(!src.empty())
 		ShowMatImg(src, IDC_SHOW_IMG, _WIN_NAME_);
 }
@@ -760,7 +753,7 @@ int CImgClassifyDlg::MoveMatToDir(cv::Mat src, std::string path, int index, bool
 			m_unkown_list.SetCurSel(0);
 			if (show_flag)
 			{
-				Mat temp = imread(m_fullpath[0], m_is_color_flag);
+				Mat temp = imread(m_fullpath[0], -1);
 				if (!temp.empty())
 					ShowMatImg(temp, IDC_SHOW_IMG, _WIN_NAME_);
 			}
@@ -840,7 +833,7 @@ void CImgClassifyDlg::OnBnClickedButtonReturn()
 	string name = m_namec.back();
 	m_namec.pop_back();
 	string fullpath = DirFile::DirAddSubdir(path, name);
-	Mat temp = imread(fullpath, m_is_color_flag);
+	Mat temp = imread(fullpath, -1);
 	if (!temp.empty())
 	{
 		string newpath = DirFile::DirAddSubdir(m_project_dir_str, name);
@@ -881,7 +874,7 @@ void CImgClassifyDlg::OnSortMove(int dlgItemID)
 	}
 	temp = DirFile::DirAddSubdir(m_project_dir_str, temp);
 	string fullpath = DirFile::DirAddSubdir(temp, m_name[index]);
-	Mat src = imread(m_fullpath[index], m_is_color_flag);
+	Mat src = imread(m_fullpath[index], -1);
 	if (!src.empty())
 	{
 		m_pathc.push_back(temp);
