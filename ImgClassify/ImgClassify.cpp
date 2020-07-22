@@ -68,6 +68,29 @@ BOOL CImgClassifyApp::InitInstance()
 	// 更改用于存储设置的注册表项
 	// TODO: 应适当修改该字符串，
 	// 例如修改为公司或组织名
+	m_handle = ::CreateMutex(NULL, FALSE, m_pszAppName);
+	if (GetLastError() == ERROR_ALREADY_EXISTS)
+	{
+		// 寻找先前实例的主窗口 
+		HWND hw = ::FindWindow(NULL, L"图像分类");
+		if (hw)
+		{
+			if (::IsIconic(hw))
+			{
+				::ShowWindow(hw, SW_RESTORE);
+			}
+
+			// 将主窗激活 
+			::SetForegroundWindow(hw);
+
+			// 将主窗的对话框激活 
+			::SetForegroundWindow(::GetLastActivePopup(hw));
+
+			// 退出本实例 
+			return FALSE;
+		}
+		return FALSE;
+	}
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
 	CImgClassifyDlg dlg;
@@ -104,3 +127,11 @@ BOOL CImgClassifyApp::InitInstance()
 	return FALSE;
 }
 
+
+
+int CImgClassifyApp::ExitInstance()
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	CloseHandle(m_handle);
+	return CWinApp::ExitInstance();
+}

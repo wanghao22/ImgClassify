@@ -14,6 +14,12 @@ namespace DirFile {
 	//解决中文乱码的char*转wchar_t*
 	CString zhToCString(std::string str);
 
+	//wstring转string
+	std::string wstring2string(const std::wstring &ws);
+
+	//string转wstring
+	std::wstring string2wstring(const std::string &s);
+
 	//创建文件夹 完整路径
 	int CreateDir(std::string dir);
 

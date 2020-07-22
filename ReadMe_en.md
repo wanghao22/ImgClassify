@@ -22,3 +22,15 @@
 > ![show.jpg](imgs/show.jpg)
 
 ------
+
+# TIPS
+
+> <kbd>Ctrl</kbd>+<kbd>Z</kbd> can revoked on step operation.
+>
+> <kbd>Ctrl</kbd>+<kbd>S</kbd>can save the current schedule, but it also means that you can't undo.
+>
+> Letter <kbd>O</kbd> or Number <kbd>9</kbd> all going to **OK**。
+>
+> Letter <kbd>N</kbd> or Number <kbd>0</kbd> all going to **NG**。
+
+---

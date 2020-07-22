@@ -18,6 +18,7 @@
 class CImgClassifyApp : public CWinApp
 {
 public:
+	HANDLE m_handle;
 	CImgClassifyApp();
 
 // ÷ÿ–¥
@@ -27,6 +28,7 @@ public:
 //  µœ÷
 
 	DECLARE_MESSAGE_MAP()
+	virtual int ExitInstance();
 };
 
 extern CImgClassifyApp theApp;

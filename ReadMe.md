@@ -22,3 +22,15 @@
 > ![show.jpg](imgs/show.jpg)
 
 ------
+
+# 隐藏的按钮
+
+> <kbd>Ctrl</kbd>+<kbd>Z</kbd>可以撤销上一步操作。
+>
+> <kbd>Ctrl</kbd>+<kbd>S</kbd>可以保存当前进度，也就意味着你不能再撤销了。
+>
+> 字母<kbd>O</kbd>和数字<kbd>9</kbd>都是划分到**OK**。
+>
+> 字母<kbd>N</kbd>和数字<kbd>0</kbd>都是划分到**NG**。
+
+---
